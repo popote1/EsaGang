@@ -7,8 +7,9 @@ public class CameraScript : MonoBehaviour
 {
     public List<GameObject> playersInGame = new List<GameObject>();
     public float baryX, baryZ;
+    public float minZoom, maxZoom;
     public Vector3 barycentric;
-
+    
     public GameObject testBary;
     private void Awake()
     {
@@ -37,15 +38,14 @@ public class CameraScript : MonoBehaviour
                 baryX = baryX / playersInGame.Count;
                 baryZ = baryZ / playersInGame.Count;
             }
-
             
-
             barycentric.x = baryX;
             barycentric.z = baryZ;
-            barycentric.y = baryX - baryZ;
-            barycentric.y = Mathf.Clamp(barycentric.y, 5f, 30f);
+            
         }
 
         testBary.transform.position = barycentric;
+
+        transform.position = testBary.transform.position;
     }
 }
