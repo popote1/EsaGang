@@ -9,9 +9,12 @@ public class PlayerController : MonoBehaviour
     private float AxisX, AxisZ;
     private Rigidbody rb;
     PlayerInput playerInput;
+    private Camera _camera;
 
     void Start()
     {
+        _camera = Camera.main;
+        _camera.GetComponent<CameraScript>().AddPlayerToList(gameObject);
         rb = gameObject.GetComponent<Rigidbody>();
         playerInput = gameObject.GetComponent<PlayerInput>();
         Debug.Log(playerInput.currentControlScheme);

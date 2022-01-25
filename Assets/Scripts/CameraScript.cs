@@ -6,6 +6,10 @@ using UnityEngine;
 public class CameraScript : MonoBehaviour
 {
     public List<GameObject> playersInGame = new List<GameObject>();
+    public float baryX, baryZ;
+    public Vector3 barycentric;
+
+    public GameObject testBary;
     private void Awake()
     {
     }
@@ -15,14 +19,33 @@ public class CameraScript : MonoBehaviour
         
     }
 
-    public void AddPlayerToList()
+    public void AddPlayerToList(GameObject player)
     {
-        playersInGame.Add(GameObject.FindGameObjectWithTag("Player"));
+        playersInGame.Add(player);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        
+        Debug.Log(playersInGame.Count);
+        if (playersInGame.Count != 0)
+        {
+            foreach (GameObject gameObject in playersInGame)
+            {
+                baryX += gameObject.transform.position.x;
+                baryZ += gameObject.transform.position.z;
+                
+                baryX = baryX / playersInGame.Count;
+                baryZ = baryZ / playersInGame.Count;
+            }
+
+            
+
+            barycentric.x = baryX;
+            barycentric.z = baryZ;
+            barycentric.y = baryX - baryZ;
+            barycentric.y = Mathf.Clamp(barycentric.y, 5f, 30f);
+        }
+
+        testBary.transform.position = barycentric;
     }
 }
