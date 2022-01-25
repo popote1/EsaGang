@@ -31,9 +31,12 @@ public class VeryController : MonoBehaviour
     public float DashForce;
     public float DashOutOfCOntrolTime;
     [Header("ThrowObjcts")] 
-    public SpringJoint Handjoint;
-    public Rigidbody GrabObject;
+    public Grabable Grabable;
+    public Rigidbody Hand;
     public float Throwforce;
+    [Header("PunchParameters")] 
+    public AnimationCurve PuchCurve;
+    public float PunchTime=0.5f;
     
 
     public Text VelocityDisplay;
@@ -41,7 +44,9 @@ public class VeryController : MonoBehaviour
     private Rigidbody _rb;
     private Quaternion _forward;
     Vector3 _move ;
+    private Vector3 _handOriginalPos;
     private float _outOfControlTimer=0;
+    private float _punchtimer;
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -50,10 +55,6 @@ public class VeryController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        
-
-        
        
     }
 
@@ -84,20 +85,15 @@ public class VeryController : MonoBehaviour
         return new Quaternion(input.x * scalar, input.y * scalar, input.z * scalar, input.w * scalar);
     }
 
-    private void FixedUpdate()
-    {
-        
-        if (_outOfControlTimer > 0)
-        {
+    private void FixedUpdate() {
+        if (_outOfControlTimer > 0) {
             _outOfControlTimer -= Time.fixedDeltaTime;
             if (_outOfControlTimer < 0) _outOfControlTimer = 0;
             return;
         }
-
         FlowtScript();
         Movement(_move);
         UpdateUprightForce();
-        
     }
 
     private void Movement( Vector3 move)
@@ -177,6 +173,12 @@ public class VeryController : MonoBehaviour
         }
     }
 
+    public void OnPunch(InputValue val)
+    {
+        Debug.Log("Punsh");
+        if (_punchtimer != 0) return;
+    }
+
     public void OnHit(InputValue val)
     {
         if (_outOfControlTimer == 0) {
@@ -188,32 +190,37 @@ public class VeryController : MonoBehaviour
     {
         Debug.Log("Grab Object");
 
-        if (GrabObject == null)
+        if (_punchtimer != 0) return;
+        if (Grabable == null)
         {
             Collider[] objectToGrabes = Physics.OverlapSphere(transform.forward + transform.position, 1);
             foreach (Collider col in objectToGrabes)
             {
-                if (col.GetComponent<Rigidbody>() && col.transform != transform)
+                if (col.GetComponent<Grabable>() && col.transform != transform)
                 {
-                    GrabObject = col.GetComponent<Rigidbody>();
-                    Vector3 pos = GrabObject.position;
-                    GrabObject.transform.position = Handjoint.transform.position;
-                    GrabObject.mass =GrabObject.mass/ 10;
-                    Handjoint.connectedBody = GrabObject;
-                    GrabObject.transform.position = pos;
+                    Grabable = col.GetComponent<Grabable>();
+                    SpringJoint joint =Grabable.GetSpringJoint();
+                    Grabable.SpringJoint.connectedAnchor = Vector3.up*10;
+                    Grabable.Rigidbody.mass = Grabable.Rigidbody.mass / 10;
+                    Grabable.IsGrabed = true;
+                    
+                    joint.connectedBody = Hand;
+                    joint.connectedAnchor =Vector3.zero;
                     return;
                 }
             }
         }
         else {
-            Handjoint.connectedBody = null;
-            GrabObject.mass =GrabObject.mass* 10;
-            GrabObject.AddForce(transform.forward.normalized*(Throwforce*GrabObject.mass),ForceMode.Impulse);
-            _rb.AddForce(-transform.forward*(Throwforce*GrabObject.mass)/10,ForceMode.Impulse);
-            GrabObject = null;
+            Destroy(Grabable.SpringJoint);
+            Grabable.Rigidbody.mass = Grabable.Rigidbody.mass * 10;
+            Grabable.Rigidbody.AddForce(transform.forward.normalized*(Throwforce* Grabable.Rigidbody.mass),ForceMode.Impulse);
+            _rb.AddForce(-transform.forward*(Throwforce* Grabable.Rigidbody.mass)/10,ForceMode.Impulse);
+            Grabable.IsGrabed = false;
+            Grabable = null;
         }
-
     }
+
+    
 
     public void FlowtScript()
     {
