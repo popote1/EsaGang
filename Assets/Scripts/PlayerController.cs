@@ -20,21 +20,23 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.AddForce(AxisX, 0, AxisZ);
+        rb.AddForce(AxisX * 600, 0, AxisZ * 600);
     }
 
     public void OnMovement(InputValue val)
     {
         if (playerInput.currentControlScheme == "XboxController")
         {
-            AxisZ = val.Get<Vector2>().y;
-            AxisX = val.Get<Vector2>().x;
+            AxisZ = val.Get<Vector2>().y * Time.deltaTime;
+            AxisX = val.Get<Vector2>().x * Time.deltaTime;
         }
+    }
 
-        if (playerInput.currentControlScheme == "KeyboardMouse")
-        {
-            AxisZ = val.Get<float>() * 5;
-        }
+    public void OnMovementKeyboard(InputValue val)
+    {
+        Debug.Log("Pouet");
+        AxisZ = val.Get<Vector2>().y * Time.deltaTime ;
+        AxisX = val.Get<Vector2>().x * Time.deltaTime;
     }
 
     public void OnGrabObject(InputValue val)
