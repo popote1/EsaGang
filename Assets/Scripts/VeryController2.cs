@@ -28,6 +28,7 @@ public class VeryController2 : MonoBehaviour
     public int MaxHP = 10;
     public int CurrentHP=10;
     public bool IsAlive = true;
+    public InGamePlayInfo InfoPanel;
 
     public Text VelocityDisplay;
     
@@ -157,6 +158,7 @@ public class VeryController2 : MonoBehaviour
             Grabable.Rigidbody.mass = Grabable.Rigidbody.mass * 10;
             Grabable.Rigidbody.AddForce(transform.forward.normalized*(Throwforce* Grabable.Rigidbody.mass),ForceMode.Impulse);
             _rb.AddForce(-transform.forward*(Throwforce* Grabable.Rigidbody.mass)/10,ForceMode.Impulse);
+            Grabable.Throwed = true;
             Grabable.IsGrabed = false;
             Grabable = null;
         }
@@ -201,5 +203,6 @@ public class VeryController2 : MonoBehaviour
             IsAlive = false;
             CurrentHP = 0;
         }
+        InfoPanel.SetHP(CurrentHP);
     }
 }
