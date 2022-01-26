@@ -1,32 +1,22 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
 [RequireComponent(typeof(Rigidbody))]
-public class VeryController : MonoBehaviour
+public class VeryController2 : MonoBehaviour
 {
 
-    public PlayerInput playerInput;
+    public PlayerInputCommands PlayerInputCommands;
     public float RideHeight;
     public float RideSpringStrenght;
     public float RideSpringDamper;
     [Header("UpRight")]
     public float UprightJointSpringStrength;
     public float UprightJointSpringDamper;
+    public bool IsGrounded;
     [Header("MovementParameters")] 
     public float MaxSpeed=8;
     public float Acceleration=200;
-    public AnimationCurve AccelerationFactorFromDot;
-    public float MaxAccelForce=150;
-    public AnimationCurve MaxAccelerationForceFactorFromDot;
-    public Vector3 ForceScale;
-    public bool IsGrounded;
-    public float JumpForce = 20;
     [Header("Dasher Parameters")] 
     public float DashForce;
     public float DashOutOfCOntrolTime;
@@ -34,10 +24,6 @@ public class VeryController : MonoBehaviour
     public Grabable Grabable;
     public Rigidbody Hand;
     public float Throwforce;
-    [Header("PunchParameters")] 
-    public AnimationCurve PuchCurve;
-    public float PunchTime=0.5f;
-    
 
     public Text VelocityDisplay;
     
@@ -51,6 +37,7 @@ public class VeryController : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        VelocityDisplay.enabled = false;
         IsReady = true;
     }
 
@@ -98,7 +85,7 @@ public class VeryController : MonoBehaviour
         UpdateUprightForce();
     }
 
-    public void Movement( Vector3 move)
+    private void Movement( Vector3 move)
     {
         
 
@@ -118,47 +105,42 @@ public class VeryController : MonoBehaviour
        }
        else
        {
+           
            actualVel = Vector3.ClampMagnitude(actualVel, actualVel.magnitude/1.1f);
        }
        VelocityDisplay.text = actualVel.magnitude+"";
        actualVel.y = _rb.velocity.y;
        _rb.velocity = actualVel;
+       
     }
-    public void OnMovement(InputValue val)
+    public void OnMovement(Vector2 val)
     {
         _move =Vector3.zero;
-        if (playerInput.currentControlScheme == "XboxController")
-        {
-            _move.z = val.Get<Vector2>().y;
-            _move.x = val.Get<Vector2>().x;
-        }
+        _move.z = val.y;
+        _move.x = val.x;
+        
     }
-
-    public void OnPunch(InputValue val)
+    public void OnPunch()
     {
         Debug.Log("Punsh");
         if (_punchtimer != 0) return;
     }
-
-    public void OnHit(InputValue val)
+    public void OnHit()
     {
         if (_outOfControlTimer == 0&& IsReady) {
             _rb.AddForce(transform.forward * DashForce, ForceMode.Impulse);
             _outOfControlTimer += DashOutOfCOntrolTime;
         }
     }
-    public void OnGrabObject(InputValue val)
+    public void OnGrabObject()
     {
         Debug.Log("Grab Object");
 
         if (_punchtimer != 0&& IsReady) return;
-        if (Grabable == null)
-        {
+        if (Grabable == null) {
             Collider[] objectToGrabes = Physics.OverlapSphere(transform.forward + transform.position, 1);
-            foreach (Collider col in objectToGrabes)
-            {
-                if (col.GetComponent<Grabable>() && col.transform != transform)
-                {
+            foreach (Collider col in objectToGrabes) {
+                if (col.GetComponent<Grabable>() && col.transform != transform) {
                     Grabable = col.GetComponent<Grabable>();
                     SpringJoint joint =Grabable.GetSpringJoint();
                     Grabable.SpringJoint.connectedAnchor = Vector3.up*10;
