@@ -24,6 +24,10 @@ public class VeryController2 : MonoBehaviour
     public Grabable Grabable;
     public Rigidbody Hand;
     public float Throwforce;
+    [Header("Hp")] 
+    public int MaxHP = 10;
+    public int CurrentHP=10;
+    public bool IsAlive = true;
 
     public Text VelocityDisplay;
     
@@ -37,14 +41,13 @@ public class VeryController2 : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        VelocityDisplay.enabled = false;
         IsReady = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+        VelocityDisplay.text = CurrentHP + " / " + MaxHP;
     }
 
     private void UpdateUprightForce()
@@ -63,6 +66,8 @@ public class VeryController2 : MonoBehaviour
         _rb.AddTorque((rotAxis*(rotRadians*UprightJointSpringStrength))-(_rb.angularVelocity*UprightJointSpringDamper));
 
     }
+    
+    
     
     public Quaternion ShortestRotation(Quaternion a, Quaternion b) {
         if (Quaternion.Dot(a, b) < 0) {
@@ -87,14 +92,9 @@ public class VeryController2 : MonoBehaviour
 
     private void Movement( Vector3 move)
     {
-        
-
-       if (move.magnitude > 1) {
+        if (move.magnitude > 1) {
            move.Normalize();
        }
-
-       
-
        _rb.AddForce(move*Acceleration);
 
        Vector3 actualVel = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
@@ -108,7 +108,6 @@ public class VeryController2 : MonoBehaviour
            
            actualVel = Vector3.ClampMagnitude(actualVel, actualVel.magnitude/1.1f);
        }
-       VelocityDisplay.text = actualVel.magnitude+"";
        actualVel.y = _rb.velocity.y;
        _rb.velocity = actualVel;
        
@@ -192,6 +191,15 @@ public class VeryController2 : MonoBehaviour
             float springForce = (x * RideSpringStrenght) - (relVel * RideSpringDamper);
             
             _rb.AddForce(rayDir*springForce);
+        }
+    }
+
+    public void TakeDamage(int damage) {
+        CurrentHP = CurrentHP - damage;
+        if (CurrentHP <= 0)
+        {
+            IsAlive = false;
+            CurrentHP = 0;
         }
     }
 }

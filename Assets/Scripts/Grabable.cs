@@ -8,6 +8,8 @@ public class Grabable : MonoBehaviour
     public SpringJoint SpringJoint;
     public bool IsGrabed;
     public GameObject HitParticule;
+    public GameObject HitPlayerParticule;
+    public int Damage = 2;
     [NonSerialized] public Rigidbody Rigidbody;
 
     private Vector3 _anchorPos;
@@ -38,11 +40,18 @@ public class Grabable : MonoBehaviour
     {
         if (!IsGrabed && other.relativeVelocity.magnitude > 10)
         {
-            GameObject go =Instantiate(HitParticule, other.contacts[0].point, Quaternion.identity);
-            go.transform.up = transform.position-other.contacts[0].point;
+            if (other.collider.CompareTag("Player"))
+            {
+                GameObject go =Instantiate(HitPlayerParticule, other.contacts[0].point, Quaternion.identity);
+                go.transform.up = transform.position-other.contacts[0].point;
+                other.gameObject.GetComponentInParent<VeryController2>().TakeDamage(Damage);
+
+            }
+            else
+            {
+                GameObject go = Instantiate(HitParticule, other.contacts[0].point, Quaternion.identity);
+                go.transform.up = transform.position - other.contacts[0].point;
+            }
         }
-        Debug.Log(
-            other.relativeVelocity.magnitude
-        );
     }
 }
