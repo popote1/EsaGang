@@ -11,11 +11,12 @@ public class CameraScript : MonoBehaviour
     public float baryX, baryZ;
     public float minZoom, maxZoom;
     public Vector3 barycentric;
+    private float baryHeight;
 
     public CinemachineVirtualCamera virtualCam;
     private CinemachineComponentBase componentBase;
     
-    [SerializeField] GameObject farthestPlayer1, farthestPlayer2;
+    [SerializeField] GameObject farthestPlayerX1, farthestPlayerX2, farthestPlayerZ1, farthestPlayerZ2;
 
     private float cameraDistance;
     //[SerializeField] private float sensitivity;
@@ -35,6 +36,24 @@ public class CameraScript : MonoBehaviour
     {
         
         playersInGame.Add(player);
+        if (farthestPlayerX1 == null)
+        {
+            farthestPlayerX1 = gameObject;
+        }
+
+        if (farthestPlayerX2 == null)
+        {
+            farthestPlayerX2 = gameObject;
+        }
+        if (farthestPlayerZ1 == null)
+        {
+            farthestPlayerZ1 = gameObject;
+        }
+
+        if (farthestPlayerZ2 == null)
+        {
+            farthestPlayerZ2 = gameObject;
+        }
     }
 
     private void FixedUpdate()
@@ -45,24 +64,24 @@ public class CameraScript : MonoBehaviour
             {
                 baryX += gameObject.transform.position.x;
                 baryZ += gameObject.transform.position.z;
-
-                if (farthestPlayer1 == null)
+                
+                if (gameObject.transform.position.x < farthestPlayerX1.transform.position.x)
                 {
-                    farthestPlayer1 = gameObject;
+                    farthestPlayerX1 = gameObject;
                 }
 
-                if (farthestPlayer2 == null)
+                if (gameObject.transform.position.x > farthestPlayerX2.transform.position.x)
                 {
-                    farthestPlayer2 = gameObject;
+                    farthestPlayerX2 = gameObject;
                 }
-                if (gameObject.transform.position.x < farthestPlayer1.transform.position.x)
+                if (gameObject.transform.position.z < farthestPlayerZ1.transform.position.z)
                 {
-                    farthestPlayer1 = gameObject;
+                    farthestPlayerX1 = gameObject;
                 }
 
-                if (gameObject.transform.position.x > farthestPlayer2.transform.position.x)
+                if (gameObject.transform.position.z > farthestPlayerZ2.transform.position.z)
                 {
-                    farthestPlayer2 = gameObject;
+                    farthestPlayerX2 = gameObject;
                 }
             }
             
@@ -71,10 +90,12 @@ public class CameraScript : MonoBehaviour
             
             barycentric.x = baryX;
             barycentric.z = baryZ;
-
+            
         }
-
-        float baryHeight = Vector3.Magnitude(farthestPlayer1.transform.position - farthestPlayer2.transform.position);
+        
+        float distanceFarthestZ = Vector3.Magnitude(farthestPlayerZ1.transform.position - farthestPlayerZ2.transform.position); 
+        float distanceFarthestX = Vector3.Magnitude(farthestPlayerX1.transform.position - farthestPlayerX2.transform.position);
+        baryHeight = distanceFarthestX + distanceFarthestZ;
         
         Debug.Log(baryHeight);
         baryHeight = Mathf.Clamp(baryHeight, 5f, 30f);
