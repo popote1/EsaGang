@@ -14,6 +14,8 @@ public class CameraScript : MonoBehaviour
 
     public CinemachineVirtualCamera virtualCam;
     private CinemachineComponentBase componentBase;
+    
+    [SerializeField] GameObject farthestPlayer1, farthestPlayer2;
 
     private float cameraDistance;
     //[SerializeField] private float sensitivity;
@@ -43,8 +45,25 @@ public class CameraScript : MonoBehaviour
             {
                 baryX += gameObject.transform.position.x;
                 baryZ += gameObject.transform.position.z;
-                
-                
+
+                if (farthestPlayer1 == null)
+                {
+                    farthestPlayer1 = gameObject;
+                }
+
+                if (farthestPlayer2 == null)
+                {
+                    farthestPlayer2 = gameObject;
+                }
+                if (gameObject.transform.position.x < farthestPlayer1.transform.position.x)
+                {
+                    farthestPlayer1 = gameObject;
+                }
+
+                if (gameObject.transform.position.x > farthestPlayer2.transform.position.x)
+                {
+                    farthestPlayer2 = gameObject;
+                }
             }
             
             baryX = baryX / playersInGame.Count;
@@ -55,8 +74,8 @@ public class CameraScript : MonoBehaviour
 
         }
 
-        float baryHeight = (-baryX) * (-baryZ);
-        //Debug.Log("BaryX vaut " + baryX+ ", BaryZ vaut " + baryZ) ;
+        float baryHeight = Vector3.Magnitude(farthestPlayer1.transform.position - farthestPlayer2.transform.position);
+        
         Debug.Log(baryHeight);
         baryHeight = Mathf.Clamp(baryHeight, 5f, 30f);
 
@@ -66,5 +85,6 @@ public class CameraScript : MonoBehaviour
 
         (componentBase as CinemachineFramingTransposer).m_CameraDistance = baryHeight;
         (componentBase as CinemachineFramingTransposer).m_TrackedObjectOffset.y = baryHeight;
+        (componentBase as CinemachineFramingTransposer).m_TrackedObjectOffset.z = -baryHeight;
     }
 }
