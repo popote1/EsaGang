@@ -69,6 +69,14 @@ public class UIPlayerMenuConfigurationMenu : MonoBehaviour
     {
         ReadyPanel.SetActive(true);
     }
+
+    public void GoBack()
+    {
+        MultiPlayerManager.Instance._playerConfigurations.Remove(
+            MultiPlayerManager.Instance._playerConfigurations[PlayerIndex]);
+        Destroy(PlayerInputCommands.gameObject);
+        Destroy(gameObject);
+    }
 }
 
 [Serializable]

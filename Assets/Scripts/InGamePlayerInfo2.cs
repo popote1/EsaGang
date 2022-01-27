@@ -78,6 +78,6 @@ public class InGamePlayerInfo2 : MonoBehaviour
 
     public void SetFaceColor(Color color)
     {
-        ImgHeadGreyScale.color = color;
+        ImgHeadGreyScale.color = color+new Color(0,0,0,1);
     }
 }

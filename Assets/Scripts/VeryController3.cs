@@ -9,7 +9,8 @@ public class VeryController3 : MonoBehaviour
 {
 
     public PlayerInputCommands PlayerInputCommands;
-    
+    public MenuPlayerConfiguration PlayerInfo;
+    public MapLoading MapLoading;
     public float RideHeight;
     public float RideSpringStrenght;
     public float RideSpringDamper;
@@ -226,8 +227,9 @@ public class VeryController3 : MonoBehaviour
             IsAlive = false;
             CurrentHP = 0;
         }
-        Gamepad.all[PlayerInputCommands.PlayerInput.playerIndex].SetMotorSpeeds(0.5f,0.5f);
-        _vibrationTimer += vibrationTime;
+        MapLoading.PlayerLostHP(PlayerInfo, -damage);
+        //Gamepad.all[PlayerInputCommands.PlayerInput.playerIndex].SetMotorSpeeds(0.5f,0.5f);
+        //_vibrationTimer += vibrationTime;
 
         // InfoPanel.SetHP(CurrentHP);
     }

@@ -29,6 +29,7 @@ public class MainMenuScripte : MonoBehaviour
     {
         UIPlayerMenuConfigurationMenu ui = Instantiate(PrefabUIPlayerMenuConfigurationMenu);
         ui.PlayerInputCommands = pc;
+        pc.ConfigMenu = ui;
         ui.SetPlayerIndex(PlayerPanel[index]);
     }
 

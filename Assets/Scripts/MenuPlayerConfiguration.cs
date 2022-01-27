@@ -15,10 +15,24 @@ public class MenuPlayerConfiguration
     public Color ColorPlayer;
     public bool PlayerIsReady;
 
-    public int HP;
+    
     public bool IsAlive = true;
     public int DeadIndex;
-     
+    public int IndexInGamePanel;
+
+    public int HP
+    {
+        get => _hp;
+        set {
+             _hp = value;
+            if (_hp <= 0) {
+                IsAlive = false;
+                _hp = 0;
+            }
+        }
+    }
+
+    private int _hp;
 
 
     public MenuPlayerConfiguration(PlayerInputCommands playerInputCommands)
