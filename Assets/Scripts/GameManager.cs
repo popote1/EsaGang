@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     public void OnPlayerJoind(PlayerInput playerInput)
     {
-        if (IsInGame)
+        /*if (IsInGame)
         {
             Debug.Log(" Player AddJoind");
             PlayerInputs.Add(playerInput);
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
             PlayersPanel[PlayerList.Count].SetActive(true);
 
             PlayerList.Add(player);
-        }
+        }*/
     }
 
     public void OnPlayerLeft(PlayerInput playerInput)

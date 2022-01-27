@@ -45,7 +45,7 @@ public class Grabable : MonoBehaviour
             {
                 GameObject go =Instantiate(HitPlayerParticule, other.contacts[0].point, Quaternion.identity);
                 go.transform.up = transform.position-other.contacts[0].point;
-                other.gameObject.GetComponentInParent<VeryController2>().TakeDamage(Damage);
+                other.gameObject.GetComponentInParent<VeryController3>().TakeDamage(Damage);
                 Throwed = false;
 
             }

@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
         Debug.Log(playerInput.currentControlScheme);
     }
 
-    // Update is called once per frame
     void Update()
     {
         rb.AddForce(AxisX, 0, AxisZ);

@@ -23,8 +23,6 @@ public class UIPlayerMenuConfigurationMenu : MonoBehaviour
     public TeamSetUp[] TeamSetUps;
     public Text TxtTeamName;
     public Image ImgTeamColor;
-    
-
 
     public void SetPlayerIndex(RectTransform parent)
     {
@@ -35,14 +33,11 @@ public class UIPlayerMenuConfigurationMenu : MonoBehaviour
         EventSystem.enabled = true;
         Debug.Log("Panel Setted");
     }
-
-    public void SetColor(Color color)
-    {
-        MultiPlayerManager.Instance.SetPlayerColor(PlayerIndex, color);
-    }
+    
 
     public void SetReadyPlayer()
     {
+        MultiPlayerManager.Instance.SetPlayerInfo(PlayerIndex , IndexHead, Colors[IndexColor], IndexTeam);
         MultiPlayerManager.Instance.SetPlayReady(PlayerIndex, true);
     }
 

@@ -14,12 +14,20 @@ public class MenuPlayerConfiguration
     public int FactionIndex;
     public Color ColorPlayer;
     public bool PlayerIsReady;
+     
 
 
     public MenuPlayerConfiguration(PlayerInputCommands playerInputCommands)
     {
         PlayerInputCommands = playerInputCommands;
         PlayerIndex = playerInputCommands.PlayerInput.playerIndex;
+    }
+
+    public void SetValues(int head, Color color, int team)
+    {
+        HeadIndex = head;
+        FactionIndex = team;
+        ColorPlayer = color;
     }
     
 

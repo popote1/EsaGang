@@ -1,9 +1,8 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class MultiPlayerManager : MonoBehaviour
 {
@@ -27,21 +26,21 @@ public class MultiPlayerManager : MonoBehaviour
         else
         {
             Instance = this;
-            //DontDestroyOnLoad(Instance);
+            DontDestroyOnLoad(Instance);
             _playerConfigurations = new List<MenuPlayerConfiguration>();
         }
     }
 
-    public void SetPlayerColor(int index, Color color)
-    {
-        _playerConfigurations[index].ColorPlayer = color;
+    public void SetPlayerInfo(int index, int head, Color color, int team) {
+        _playerConfigurations[index].SetValues(head, color, team);
     }
-
+    
     public void SetPlayReady(int index, bool value)
     {
         _playerConfigurations[index].PlayerIsReady = value;
         if (_playerConfigurations.Count > 1 && _playerConfigurations.All(p => p.PlayerIsReady == true)) {
             IsReadyToLounch = true;
+            LoadnewScene(1);
         }
     }
 
@@ -53,8 +52,14 @@ public class MultiPlayerManager : MonoBehaviour
         {
             PlayerInputCommands pc = pi.GetComponent<PlayerInputCommands>();
             _playerConfigurations.Add(new MenuPlayerConfiguration(pc));
+            pc.transform.SetParent(transform);
             MainMenuScripte.AddPlayerUI(pc, _playerConfigurations.Count-1);
         }
+    }
+
+    private void LoadnewScene(int index)
+    {
+        SceneManager.LoadScene(index);
     }
 
     // Update is called once per frame
