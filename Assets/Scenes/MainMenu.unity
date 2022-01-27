@@ -2075,6 +2075,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMenuInfo: []
+  PrefabUIPlayerMenuConfigurationMenu: {fileID: 2373297326813704791, guid: 84c028705c26898418b4d990054750df, type: 3}
   Prefabs: {fileID: 7843946273195781302, guid: dbb1ee506f5946d41afcd015e2a61264, type: 3}
   PlayerPanel:
   - {fileID: 1909749366}

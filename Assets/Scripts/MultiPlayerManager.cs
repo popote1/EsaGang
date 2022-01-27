@@ -27,7 +27,7 @@ public class MultiPlayerManager : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(Instance);
+            //DontDestroyOnLoad(Instance);
             _playerConfigurations = new List<MenuPlayerConfiguration>();
         }
     }
