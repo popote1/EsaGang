@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 
 [RequireComponent(typeof(Rigidbody))]
@@ -7,6 +9,7 @@ public class VeryController3 : MonoBehaviour
 {
 
     public PlayerInputCommands PlayerInputCommands;
+    
     public float RideHeight;
     public float RideSpringStrenght;
     public float RideSpringDamper;
@@ -28,7 +31,8 @@ public class VeryController3 : MonoBehaviour
     public int MaxHP = 10;
     public int CurrentHP=10;
     public bool IsAlive = true;
-    public InGamePlayInfo InfoPanel;
+    public float vibrationTime = 0.5f;
+
 
     public Text VelocityDisplay;
     [Header("Graphics")] 
@@ -41,6 +45,7 @@ public class VeryController3 : MonoBehaviour
     Vector3 _move ;
     private Vector3 _handOriginalPos;
     private float _outOfControlTimer=0;
+    private float _vibrationTimer=0;
     private float _punchtimer;
     private bool IsReady;
     void Start()
@@ -53,6 +58,15 @@ public class VeryController3 : MonoBehaviour
     void Update()
     {
         VelocityDisplay.text = CurrentHP + " / " + MaxHP;
+        if (_vibrationTimer > 0)
+        {
+            _vibrationTimer -= Time.deltaTime;
+            if (_vibrationTimer < 0)
+            {
+                _vibrationTimer = 0;
+                Gamepad.all[PlayerInputCommands.PlayerInput.playerIndex].SetMotorSpeeds(0,0);
+            }
+        }
     }
 
     private void UpdateUprightForce()
@@ -84,15 +98,20 @@ public class VeryController3 : MonoBehaviour
         return new Quaternion(input.x * scalar, input.y * scalar, input.z * scalar, input.w * scalar);
     }
 
-    private void FixedUpdate() {
-        if (_outOfControlTimer > 0) {
+    private void FixedUpdate()
+    {
+        if (_outOfControlTimer > 0)
+        {
             _outOfControlTimer -= Time.fixedDeltaTime;
             if (_outOfControlTimer < 0) _outOfControlTimer = 0;
             return;
         }
-        FlowtScript();
-        Movement(_move);
-        UpdateUprightForce();
+
+        if (IsAlive) {
+            FlowtScript();
+            Movement(_move);
+            UpdateUprightForce();
+        }
     }
 
     private void Movement( Vector3 move)
@@ -131,7 +150,7 @@ public class VeryController3 : MonoBehaviour
     }
     public void OnHit()
     {
-        if (_outOfControlTimer == 0&& IsReady) {
+        if (_outOfControlTimer == 0&& IsReady&&IsAlive) {
             _rb.AddForce(transform.forward * DashForce, ForceMode.Impulse);
             _outOfControlTimer += DashOutOfCOntrolTime;
         }
@@ -140,7 +159,7 @@ public class VeryController3 : MonoBehaviour
     {
         Debug.Log("Grab Object");
 
-        if (_punchtimer != 0&& IsReady) return;
+        if ((_punchtimer != 0&& IsReady)||!IsAlive) return;
         if (Grabable == null) {
             Collider[] objectToGrabes = Physics.OverlapSphere(transform.forward + transform.position, 1);
             foreach (Collider col in objectToGrabes) {
@@ -207,6 +226,11 @@ public class VeryController3 : MonoBehaviour
             IsAlive = false;
             CurrentHP = 0;
         }
-        InfoPanel.SetHP(CurrentHP);
+        Gamepad.all[PlayerInputCommands.PlayerInput.playerIndex].SetMotorSpeeds(0.5f,0.5f);
+        _vibrationTimer += vibrationTime;
+
+        // InfoPanel.SetHP(CurrentHP);
     }
+    
+    
 }

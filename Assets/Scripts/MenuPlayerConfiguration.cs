@@ -14,6 +14,10 @@ public class MenuPlayerConfiguration
     public int FactionIndex;
     public Color ColorPlayer;
     public bool PlayerIsReady;
+
+    public int HP;
+    public bool IsAlive = true;
+    public int DeadIndex;
      
 
 

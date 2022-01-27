@@ -16,7 +16,9 @@ public class MapLoading : MonoBehaviour
         {
             VeryController3 player =Instantiate(PrefabsPlayer, PlayerSpawn[i].position, PlayerSpawn[i].rotation);
             MultiPlayerManager.Instance._playerConfigurations[i].PlayerInputCommands.Player = player;
+            player.PlayerInputCommands = MultiPlayerManager.Instance._playerConfigurations[i].PlayerInputCommands;
 
+            MultiPlayerManager.Instance._playerConfigurations[i].HP = 10;
             player.PlayerMeshRenderer.material.color = MultiPlayerManager.Instance._playerConfigurations[i].ColorPlayer;
             player.TchirtMeshRenderer.material.color = TeamsColor[MultiPlayerManager.Instance._playerConfigurations[i].FactionIndex];
         }
@@ -36,7 +38,5 @@ public class MapLoading : MonoBehaviour
 
 public class playerstat
 {
-    public int IndexPlayer;
-    public int HP;
-    public int Team;
+    
 }
