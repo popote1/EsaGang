@@ -7,6 +7,7 @@ public class MainMenuScripte : MonoBehaviour
     public PlayerMenuInfo[] PlayerMenuInfo;
 
 
+    public RectTransform[] PlayerPanel;
     public GameObject PanelIntro;
     public GameObject PanelSelectionPlayer;
 

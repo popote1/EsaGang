@@ -207,6 +207,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "UI",
+            "id": "cb9fcba0-799b-4245-b4b2-a7610e274a3e",
+            "actions": [
+                {
+                    "name": "Navigation",
+                    "type": "PassThrough",
+                    "id": "7dcb3533-7ea3-46b6-8be4-39c41662e4bb",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Accept",
+                    "type": "Button",
+                    "id": "468889da-c029-4fd1-af62-4cb64b965be8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4817ec94-734b-40a9-ac3e-612db8fce3a9",
+                    "path": "<XInputController>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Navigation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0eb52296-d0e6-4e69-a444-fb252c7ad197",
+                    "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Accept",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
