@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MainMenuScripte : MonoBehaviour
 {
     public PlayerMenuInfo[] PlayerMenuInfo;
 
 
+    public UIPlayerMenuConfigurationMenu PrefabUIPlayerMenuConfigurationMenu;
     public MultiPlayerManager Prefabs;
     public RectTransform[] PlayerPanel;
     public GameObject PanelIntro;
@@ -21,6 +23,13 @@ public class MainMenuScripte : MonoBehaviour
             Instantiate(Prefabs);
         }
         MultiPlayerManager.Instance.MainMenuScripte = this;
+    }
+
+    public void AddPlayerUI(PlayerInputCommands pc, int index)
+    {
+        UIPlayerMenuConfigurationMenu ui = Instantiate(PrefabUIPlayerMenuConfigurationMenu);
+        ui.PlayerInputCommands = pc;
+        ui.SetPlayerIndex(PlayerPanel[index]);
     }
 
     

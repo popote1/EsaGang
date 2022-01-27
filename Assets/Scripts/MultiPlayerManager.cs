@@ -14,7 +14,7 @@ public class MultiPlayerManager : MonoBehaviour
     public int maxplayer = 4;
     public bool IsReadyToLounch;
     public MainMenuScripte MainMenuScripte;
-    public UIPlayerMenuConfigurationMenu PrefabUIPlayerMenuConfigurationMenu;
+   
     
     public static  MultiPlayerManager Instance { get; private set;}
 
@@ -53,9 +53,7 @@ public class MultiPlayerManager : MonoBehaviour
         {
             PlayerInputCommands pc = pi.GetComponent<PlayerInputCommands>();
             _playerConfigurations.Add(new MenuPlayerConfiguration(pc));
-            UIPlayerMenuConfigurationMenu ui = Instantiate(PrefabUIPlayerMenuConfigurationMenu);
-            ui.PlayerInputCommands = pc;
-            ui.SetPlayerIndex(MainMenuScripte.PlayerPanel[_playerConfigurations.Count-1]);
+            MainMenuScripte.AddPlayerUI(pc, _playerConfigurations.Count-1);
         }
     }
 

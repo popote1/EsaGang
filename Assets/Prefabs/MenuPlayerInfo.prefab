@@ -358,7 +358,6 @@ GameObject:
   - component: {fileID: 4504249188791242932}
   - component: {fileID: 134190683392123457}
   - component: {fileID: 223408780813893181}
-  - component: {fileID: 6397447988880191358}
   - component: {fileID: 2373297326813704791}
   - component: {fileID: 968319782023260488}
   - component: {fileID: 2174672692805406193}
@@ -429,21 +428,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6397447988880191358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 430422443951170657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d9ab6a1675b98d449aa13f621ebfb90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ImgPlayerColor: {fileID: 0}
-  TxtPlayer: {fileID: 0}
-  PanelIsReady: {fileID: 3669913540081090715}
 --- !u!114 &2373297326813704791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,7 +444,7 @@ MonoBehaviour:
   PlayerInputCommands: {fileID: 0}
   EventSystem: {fileID: 2174672692805406193}
   ReadyPanel: {fileID: 3669913540081090715}
-  MenuPanel: {fileID: 0}
+  MenuPanel: {fileID: 430422443951170657}
   IndexHead: 0
   HeadSetUps:
   - Name: Moi
@@ -519,7 +503,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
-  m_XRTrackingOrigin: {fileID: 699764973836903519}
+  m_XRTrackingOrigin: {fileID: 551684243324292541}
   m_ActionsAsset: {fileID: -944628639613478452, guid: e67e49c74c3f5df459a4a8d06c1c3d91, type: 3}
   m_PointAction: {fileID: 0}
   m_MoveAction: {fileID: 2882906549838462536, guid: e67e49c74c3f5df459a4a8d06c1c3d91, type: 3}

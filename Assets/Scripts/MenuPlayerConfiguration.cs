@@ -21,5 +21,6 @@ public class MenuPlayerConfiguration
         PlayerInputCommands = playerInputCommands;
         PlayerIndex = playerInputCommands.PlayerInput.playerIndex;
     }
+    
 
 }

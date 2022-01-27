@@ -29,6 +29,7 @@ public class UIPlayerMenuConfigurationMenu : MonoBehaviour
     public void SetPlayerIndex(RectTransform parent)
     {
         PlayerIndex = PlayerInputCommands.PlayerInput.playerIndex;
+        //MenuPanel.name = "Menu Panel " + PlayerIndex;
         transform.SetParent(parent, false);
         PlayerInputCommands.PlayerInput.uiInputModule = EventSystem;
         EventSystem.enabled = true;
