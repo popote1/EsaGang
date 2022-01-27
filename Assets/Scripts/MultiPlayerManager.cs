@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MainMenuMultiPlayerManager : MonoBehaviour
+public class MultiPlayerManager : MonoBehaviour
 {
 
     public List<MenuPlayerConfiguration> _playerConfigurations;
@@ -16,7 +16,7 @@ public class MainMenuMultiPlayerManager : MonoBehaviour
     public MainMenuScripte MainMenuScripte;
     public UIPlayerMenuConfigurationMenu PrefabUIPlayerMenuConfigurationMenu;
     
-    public static  MainMenuMultiPlayerManager Instance { get; private set;}
+    public static  MultiPlayerManager Instance { get; private set;}
 
     private void Awake()
     {
