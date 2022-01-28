@@ -40,7 +40,8 @@ public class MultiPlayerManager : MonoBehaviour
         _playerConfigurations[index].PlayerIsReady = value;
         if (_playerConfigurations.Count > 1 && _playerConfigurations.All(p => p.PlayerIsReady == true)) {
             IsReadyToLounch = true;
-            LoadnewScene(2);
+            MainMenuScripte.loadLevelPannel();
+            //LoadnewScene(2);
         }
     }
 
@@ -66,7 +67,7 @@ public class MultiPlayerManager : MonoBehaviour
         _playerConfigurations.Remove(menu);
     }
 
-    private void LoadnewScene(int index)
+    public void LoadNewScene(int index)
     {
         foreach (MenuPlayerConfiguration player in _playerConfigurations)
         {

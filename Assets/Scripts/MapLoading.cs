@@ -8,12 +8,14 @@ public class MapLoading : MonoBehaviour
     public Transform[] PlayerSpawn;
     public Color[] TeamsColor;
     public InGamePlayerInfo2[] PlayerPanel;
+    public CameraScript CameraScript;
 
     public bool GameIsEnd;
     void Start()
     {
         if (MultiPlayerManager.Instance == null) return;
 
+        
         for(int i=0; i< MultiPlayerManager.Instance._playerConfigurations.Count;i++)
         {
             VeryController3 player =Instantiate(PrefabsPlayer, PlayerSpawn[i].position, PlayerSpawn[i].rotation);
@@ -26,11 +28,12 @@ public class MapLoading : MonoBehaviour
             MultiPlayerManager.Instance._playerConfigurations[i].IndexInGamePanel= i;
             player.PlayerMeshRenderer.material.color = MultiPlayerManager.Instance._playerConfigurations[i].ColorPlayer;
             player.TchirtMeshRenderer.material.color = TeamsColor[MultiPlayerManager.Instance._playerConfigurations[i].FactionIndex];
-            
+            CameraScript.AddPlayerToList(player.gameObject);
             
             PlayerPanel[i].gameObject.SetActive(true);
             PlayerPanel[i].SetFaceColor(MultiPlayerManager.Instance._playerConfigurations[i].ColorPlayer);
         }
+        
     }
 
     // Update is called once per frame
