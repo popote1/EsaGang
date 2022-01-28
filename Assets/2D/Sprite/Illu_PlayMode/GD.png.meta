@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 6bab5dab19b28054fad10cd7f6f5eb7e
+<<<<<<< HEAD:Assets/2D/Sprite/Illu_PlayMode/GA.png.meta
+guid: 7db05b1628f2973439fcb6e8004f8cb6
+=======
+guid: edffdcc07b2c121448459a4b57c4bb56
+>>>>>>> parent of 39b91ea (GA_GD_Sprites):Assets/2D/Sprite/Illu_PlayMode/GD.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
