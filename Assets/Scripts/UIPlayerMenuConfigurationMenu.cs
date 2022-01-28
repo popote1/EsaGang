@@ -10,6 +10,8 @@ public class UIPlayerMenuConfigurationMenu : MonoBehaviour
     public InputSystemUIInputModule EventSystem;
     public GameObject ReadyPanel;
     public GameObject MenuPanel;
+    public AudioClip EnterSound;
+    [Range(0, 1)] public float EntersoundVolume=1;
     [Header("Heade")] 
     public int IndexHead=0;
     public HeadSetUp[] HeadSetUps;
@@ -53,6 +55,7 @@ public class UIPlayerMenuConfigurationMenu : MonoBehaviour
         TeamSprite.sprite = TeamSetUps[IndexTeam].Sprite;
         PlayerTChirt.material.color = TeamSetUps[IndexTeam].Color + new Color(0, 0, 0, 1);
         PlayerBody.material.color = Colors[IndexColor]+new Color(0,0,0,1);
+        SoundManager.Instance.PlayerSound(EnterSound, EntersoundVolume);
     }
     
 

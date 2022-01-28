@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7157010206292768818}
   - component: {fileID: 7148948481507598876}
   - component: {fileID: 1190397621856396062}
+  - component: {fileID: 9090714957953058842}
   m_Layer: 0
   m_Name: Roof_Particule
   m_TagString: Untagged
@@ -168,7 +169,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.95
+      scalar: 0
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -606,7 +607,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 2
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4804,3 +4805,16 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &9090714957953058842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7394429043227099342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 723ea96effb61ca4abd4da578c1916a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DestroyDelay: 3
