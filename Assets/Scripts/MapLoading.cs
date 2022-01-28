@@ -9,8 +9,6 @@ public class MapLoading : MonoBehaviour
     public Color[] TeamsColor;
     public InGamePlayerInfo2[] PlayerPanel;
     public CameraScript CameraScript;
-    public AudioClip Music;
-    [Range(0, 1)] public float MusicVolume=1;
 
     public bool GameIsEnd;
     void Start()
@@ -34,8 +32,6 @@ public class MapLoading : MonoBehaviour
             
             PlayerPanel[i].gameObject.SetActive(true);
             PlayerPanel[i].SetFaceColor(MultiPlayerManager.Instance._playerConfigurations[i].ColorPlayer);
-            
-            if (Music!=null)SoundManager.Instance.PlayMusic(Music, MusicVolume);
         }
         
     }

@@ -8,15 +8,10 @@ public class MainMenuScripte : MonoBehaviour
     
     public UIPlayerMenuConfigurationMenu PrefabUIPlayerMenuConfigurationMenu;
     public MultiPlayerManager Prefabs;
-    public SoundManager PrefabsSoundManager;
     public RectTransform[] PlayerPanel;
     public GameObject PanelIntro;
     public GameObject PanelSelectionPlayer;
-    public AudioClip Music;
-    [Range(0, 1)] public float MusicVolume=1;
     [Header("MapSelector")]
-    public AudioClip MapOpenSound;
-    [Range(0, 1)] public float MapOpenSoundVolume=1;
     public MapDate[] MapDates;
     public GameObject MapPanel;
     public InputSystemUIInputModule MapEventSysteme;
@@ -28,9 +23,10 @@ public class MainMenuScripte : MonoBehaviour
 
     private void Start()
     {
-        if (MultiPlayerManager.Instance == null) Instantiate(Prefabs);
-        if (SoundManager.Instance == null) Instantiate(PrefabsSoundManager);
-        if (Music!=null)SoundManager.Instance.PlayMusic(Music, MusicVolume);
+        if (MultiPlayerManager.Instance == null)
+        {
+            Instantiate(Prefabs);
+        }
         MultiPlayerManager.Instance.MainMenuScripte = this;
     }
 
@@ -58,7 +54,6 @@ public class MainMenuScripte : MonoBehaviour
 
     public void loadLevelPannel()
     {
-        if (Music!=null)SoundManager.Instance.PlayerSound(MapOpenSound,MapOpenSoundVolume);
         MapPanel.SetActive(true);
         foreach (MenuPlayerConfiguration player in MultiPlayerManager.Instance._playerConfigurations)
         {

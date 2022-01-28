@@ -9,8 +9,6 @@ public class EndGameMenu : MonoBehaviour
 
     public Text TimerText;
     public float TimeOnScene;
-    public AudioClip Music;
-    [Range(0, 1)] public float MusicVolume=1;
 
     private float _timer;
     void Start()
@@ -18,7 +16,6 @@ public class EndGameMenu : MonoBehaviour
         if (MultiPlayerManager.Instance != null)
         {
             _timer += TimeOnScene;
-            if (Music!=null)SoundManager.Instance.PlayMusic(Music, MusicVolume);
         }
     }
 

@@ -13,8 +13,8 @@ public class MultiPlayerManager : MonoBehaviour
     public int maxplayer = 4;
     public bool IsReadyToLounch;
     public MainMenuScripte MainMenuScripte;
-
-
+   
+    
     public static  MultiPlayerManager Instance { get; private set;}
 
     private void Awake()
