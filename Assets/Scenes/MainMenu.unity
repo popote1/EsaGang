@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748171, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -324,6 +324,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   IsSelectable: 1
+  Sounds:
+  - {fileID: 8300000, guid: 6739c01659ad96d47987f4ddee226b36, type: 3}
+  - {fileID: 8300000, guid: 34b439bf70b80a6409eadecc6be92d68, type: 3}
+  - {fileID: 8300000, guid: a764377339b869e459f5e53fb9258f73, type: 3}
+  - {fileID: 8300000, guid: 6dd7024f00606b44eb5884197a66a893, type: 3}
+  Volume: 0.535
 --- !u!1 &194474062
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,6 +1141,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   IsSelectable: 1
+  Sounds:
+  - {fileID: 8300000, guid: 6739c01659ad96d47987f4ddee226b36, type: 3}
+  - {fileID: 8300000, guid: 34b439bf70b80a6409eadecc6be92d68, type: 3}
+  - {fileID: 8300000, guid: a764377339b869e459f5e53fb9258f73, type: 3}
+  - {fileID: 8300000, guid: 6dd7024f00606b44eb5884197a66a893, type: 3}
+  Volume: 0.535
 --- !u!1 &526790401
 GameObject:
   m_ObjectHideFlags: 0
@@ -2047,6 +2059,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1011137159}
   m_CullTransparentMesh: 1
+--- !u!1 &1020484212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1020484213}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1020484213
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020484212}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.536702, y: 5.1847353, z: -18.535599}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1109753263
 GameObject:
   m_ObjectHideFlags: 0
@@ -2419,7 +2461,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1238834220}
   - component: {fileID: 1238834219}
-  - component: {fileID: 1238834218}
   - component: {fileID: 1238834221}
   m_Layer: 0
   m_Name: Main Camera
@@ -2428,14 +2469,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1238834218
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1238834217}
-  m_Enabled: 1
 --- !u!20 &1238834219
 Camera:
   m_ObjectHideFlags: 0
@@ -3508,6 +3541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PrefabUIPlayerMenuConfigurationMenu: {fileID: 2373297326813704791, guid: 84c028705c26898418b4d990054750df, type: 3}
   Prefabs: {fileID: 7843946273195781302, guid: dbb1ee506f5946d41afcd015e2a61264, type: 3}
+  PrefabsSoundManager: {fileID: 2514025788679394065, guid: 9721a4a8227f85249b28103ccc38ecf3, type: 3}
   PlayerPanel:
   - {fileID: 1909749366}
   - {fileID: 618800556}
@@ -3515,6 +3549,10 @@ MonoBehaviour:
   - {fileID: 1358748611}
   PanelIntro: {fileID: 640025392}
   PanelSelectionPlayer: {fileID: 2132925339}
+  Music: {fileID: 8300000, guid: d3d5b8b57afdad84fb7f7afe18f53724, type: 3}
+  MusicVolume: 1
+  MapOpenSound: {fileID: 8300000, guid: 7b69beceabbd8f24e8bc62d77ac7ca1c, type: 3}
+  MapOpenSoundVolume: 1
   MapDates:
   - Name: MapBlocking
     Sprie: {fileID: 21300000, guid: 593a08959dde916479a407c040318183, type: 3}
@@ -4166,6 +4204,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   IsSelectable: 1
+  Sounds:
+  - {fileID: 8300000, guid: 6739c01659ad96d47987f4ddee226b36, type: 3}
+  - {fileID: 8300000, guid: 34b439bf70b80a6409eadecc6be92d68, type: 3}
+  - {fileID: 8300000, guid: a764377339b869e459f5e53fb9258f73, type: 3}
+  - {fileID: 8300000, guid: 6dd7024f00606b44eb5884197a66a893, type: 3}
+  Volume: 0.535
 --- !u!1 &1968172147
 GameObject:
   m_ObjectHideFlags: 0
