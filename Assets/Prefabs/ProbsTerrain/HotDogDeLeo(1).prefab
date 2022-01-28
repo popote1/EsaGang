@@ -153,3 +153,23 @@ MonoBehaviour:
   SpringJoint: {fileID: 0}
   IsGrabed: 0
   HitParticule: {fileID: 2942772473696930089, guid: 55f28d7b32ea70847a0e333adb628dec, type: 3}
+  HitPlayerParticule: {fileID: 0}
+  Damage: 2
+  Throwed: 0
+  volume: 0.1
+  objectSounds:
+  - {fileID: 8300000, guid: 9435a67e5d599604fa2a65d17267b589, type: 3}
+  - {fileID: 8300000, guid: c06c001a944b0f04d8e9dfb665253c17, type: 3}
+  - {fileID: 8300000, guid: 30f812e1c2faf94439c3a5e4e4e7ee93, type: 3}
+  - {fileID: 8300000, guid: 7f6da4975439ab043ae0c5c1ede3e51e, type: 3}
+  hitSounds:
+  - {fileID: 8300000, guid: 1a7d7da5b5aeedf498376908693fe70f, type: 3}
+  - {fileID: 8300000, guid: b19a1062d11e0fc48a73762b93a8cae4, type: 3}
+  - {fileID: 8300000, guid: 7011aeaf767e14c448377b25a804f6e5, type: 3}
+  - {fileID: 8300000, guid: 654847f8509b2ad4189c0471e4c7f5cc, type: 3}
+  - {fileID: 8300000, guid: 860edc6b8cf0d2a48a8d357f1c846a43, type: 3}
+  - {fileID: 8300000, guid: 4677f694692e4094eb0eeb6b70e17dbd, type: 3}
+  - {fileID: 8300000, guid: 147126011794dd747845e0b0850bff9c, type: 3}
+  - {fileID: 8300000, guid: 7c0587f8a4fa31c42aeb4d0b2dac1bee, type: 3}
+  - {fileID: 8300000, guid: a765d80d13fb5ff4d9e4cb2ba3ed2c42, type: 3}
+  - {fileID: 8300000, guid: c020a9c4bfda05344a0520be2ab51a3f, type: 3}
