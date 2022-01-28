@@ -546,6 +546,9 @@ MonoBehaviour:
   SpringJoint: {fileID: 0}
   IsGrabed: 0
   HitParticule: {fileID: 2942772473696930089, guid: 55f28d7b32ea70847a0e333adb628dec, type: 3}
+  HitPlayerParticule: {fileID: 2942772473696930089, guid: d951fe9e2f8b18c449e6a99c82bd478b, type: 3}
+  Damage: 2
+  Throwed: 0
 --- !u!1 &7919551677708344610
 GameObject:
   m_ObjectHideFlags: 0

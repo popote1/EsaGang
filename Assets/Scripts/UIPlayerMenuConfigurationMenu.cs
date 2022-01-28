@@ -29,7 +29,9 @@ public class UIPlayerMenuConfigurationMenu : MonoBehaviour
     public SkinnedMeshRenderer PlayerBody;
     public SkinnedMeshRenderer PlayerTChirt;
     public SpriteRenderer TeamSprite;
-    
+    public Transform Head;
+
+    private GameObject _head;
     public bool CanInteract {
         get {return EventSystem.enabled;
         }
@@ -55,6 +57,13 @@ public class UIPlayerMenuConfigurationMenu : MonoBehaviour
         TeamSprite.sprite = TeamSetUps[IndexTeam].Sprite;
         PlayerTChirt.material.color = TeamSetUps[IndexTeam].Color + new Color(0, 0, 0, 1);
         PlayerBody.material.color = Colors[IndexColor]+new Color(0,0,0,1);
+
+        _head = Instantiate(HeadSetUps[0].prefabs, Head.position, Head.rotation);
+        _head.transform.SetParent(Head);
+        _head.transform.localScale = Head.transform.localScale;
+        
+        
+        
         SoundManager.Instance.PlayerSound(EnterSound, EntersoundVolume);
     }
     
@@ -71,6 +80,11 @@ public class UIPlayerMenuConfigurationMenu : MonoBehaviour
         if (IndexHead < 0) IndexHead = HeadSetUps.Length - 1;
         if (IndexHead >= HeadSetUps.Length) IndexHead = 0;
         TxtHeadName.text = HeadSetUps[IndexHead].Name;
+        
+        Destroy(_head);
+        _head = Instantiate(HeadSetUps[IndexHead].prefabs, Head.position, Head.rotation);
+        _head.transform.SetParent(Head);
+        _head.transform.localScale = Head.transform.localScale;
     }
 
     public void UIChangeColor(int value) {

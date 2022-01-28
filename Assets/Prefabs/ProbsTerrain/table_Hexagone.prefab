@@ -127,4 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpringJoint: {fileID: 0}
   IsGrabed: 0
-  HitParticule: {fileID: 0}
+  HitParticule: {fileID: 2942772473696930089, guid: 55f28d7b32ea70847a0e333adb628dec, type: 3}
+  HitPlayerParticule: {fileID: 0}
+  Damage: 2
+  Throwed: 0
