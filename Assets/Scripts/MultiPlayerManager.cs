@@ -13,8 +13,8 @@ public class MultiPlayerManager : MonoBehaviour
     public int maxplayer = 4;
     public bool IsReadyToLounch;
     public MainMenuScripte MainMenuScripte;
-   
-    
+
+
     public static  MultiPlayerManager Instance { get; private set;}
 
     private void Awake()
@@ -40,7 +40,8 @@ public class MultiPlayerManager : MonoBehaviour
         _playerConfigurations[index].PlayerIsReady = value;
         if (_playerConfigurations.Count > 1 && _playerConfigurations.All(p => p.PlayerIsReady == true)) {
             IsReadyToLounch = true;
-            LoadnewScene(1);
+            MainMenuScripte.loadLevelPannel();
+            //LoadnewScene(2);
         }
     }
 
@@ -57,8 +58,21 @@ public class MultiPlayerManager : MonoBehaviour
         }
     }
 
-    private void LoadnewScene(int index)
+    public void OnRemovePlayer(PlayerInput pi)
     {
+        MenuPlayerConfiguration menu =
+            (MenuPlayerConfiguration) _playerConfigurations.Where(P => P.PlayerIndex == pi.playerIndex);
+        
+        //Destroy(menu.PlayerInputCommands);
+        _playerConfigurations.Remove(menu);
+    }
+
+    public void LoadNewScene(int index)
+    {
+        foreach (MenuPlayerConfiguration player in _playerConfigurations)
+        {
+            player.PlayerInputCommands.PlayerInput.SwitchCurrentActionMap("Player");
+        }
         SceneManager.LoadScene(index);
     }
 
@@ -66,5 +80,22 @@ public class MultiPlayerManager : MonoBehaviour
     void Update()
     {
         
+    }
+    public void GoToWinScene() {
+        foreach (Gamepad pad in Gamepad.all) {
+            pad.SetMotorSpeeds(0,0);
+        }
+        
+        SceneManager.LoadScene(1);
+    }
+
+    public void ReturnToMainMenu()
+    {
+        foreach (MenuPlayerConfiguration player in _playerConfigurations)
+        {
+            Destroy(player.PlayerInputCommands.gameObject);
+        }
+        _playerConfigurations.Clear();
+        SceneManager.LoadScene(0);
     }
 }

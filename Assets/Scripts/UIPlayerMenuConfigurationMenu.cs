@@ -10,6 +10,8 @@ public class UIPlayerMenuConfigurationMenu : MonoBehaviour
     public InputSystemUIInputModule EventSystem;
     public GameObject ReadyPanel;
     public GameObject MenuPanel;
+    public AudioClip EnterSound;
+    [Range(0, 1)] public float EntersoundVolume=1;
     [Header("Heade")] 
     public int IndexHead=0;
     public HeadSetUp[] HeadSetUps;
@@ -23,6 +25,18 @@ public class UIPlayerMenuConfigurationMenu : MonoBehaviour
     public TeamSetUp[] TeamSetUps;
     public Text TxtTeamName;
     public Image ImgTeamColor;
+    [Header("ExtraModels")] 
+    public SkinnedMeshRenderer PlayerBody;
+    public SkinnedMeshRenderer PlayerTChirt;
+    public SpriteRenderer TeamSprite;
+    
+    public bool CanInteract {
+        get {return EventSystem.enabled;
+        }
+        set {
+            EventSystem.enabled = CanInteract;
+        }
+    }
 
     public void SetPlayerIndex(RectTransform parent)
     {
@@ -32,6 +46,16 @@ public class UIPlayerMenuConfigurationMenu : MonoBehaviour
         PlayerInputCommands.PlayerInput.uiInputModule = EventSystem;
         EventSystem.enabled = true;
         Debug.Log("Panel Setted");
+        
+        
+        TxtHeadName.text = HeadSetUps[IndexHead].Name;
+        ImgColor.color = Colors[IndexColor]+new Color(0,0,0,1);
+        ImgTeamColor.color = TeamSetUps[IndexTeam].Color+new Color(0,0,0,1);
+        TxtTeamName.text = "TEAM :\r"+TeamSetUps[IndexTeam].Name;
+        TeamSprite.sprite = TeamSetUps[IndexTeam].Sprite;
+        PlayerTChirt.material.color = TeamSetUps[IndexTeam].Color + new Color(0, 0, 0, 1);
+        PlayerBody.material.color = Colors[IndexColor]+new Color(0,0,0,1);
+        SoundManager.Instance.PlayerSound(EnterSound, EntersoundVolume);
     }
     
 
@@ -54,6 +78,7 @@ public class UIPlayerMenuConfigurationMenu : MonoBehaviour
         if (IndexColor < 0) IndexColor = Colors.Length - 1;
         if (IndexColor >= Colors.Length) IndexColor = 0;
         ImgColor.color = Colors[IndexColor]+new Color(0,0,0,1);
+        PlayerBody.material.color = Colors[IndexColor]+new Color(0,0,0,1);
     }
 
     public void UICangeTeam(int value)
@@ -63,11 +88,21 @@ public class UIPlayerMenuConfigurationMenu : MonoBehaviour
         if (IndexTeam >= TeamSetUps.Length) IndexTeam = 0;
         ImgTeamColor.color = TeamSetUps[IndexTeam].Color+new Color(0,0,0,1);
         TxtTeamName.text = "TEAM :\r"+TeamSetUps[IndexTeam].Name;
+        TeamSprite.sprite = TeamSetUps[IndexTeam].Sprite;
+        PlayerTChirt.material.color = TeamSetUps[IndexTeam].Color + new Color(0, 0, 0, 1);
     }
 
     public void UISetPlayerReader()
     {
         ReadyPanel.SetActive(true);
+    }
+
+    public void GoBack()
+    {
+        MultiPlayerManager.Instance._playerConfigurations.Remove(
+            MultiPlayerManager.Instance._playerConfigurations[PlayerIndex]);
+        Destroy(PlayerInputCommands.gameObject);
+        Destroy(gameObject);
     }
 }
 
@@ -76,6 +111,7 @@ public class TeamSetUp
 {
     public string Name;
     public Color Color;
+    public Sprite Sprite;
 }
 
 [Serializable]
