@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
@@ -50,6 +51,10 @@ public class VeryController3 : MonoBehaviour
     private float _punchtimer;
     private bool IsReady;
     private bool _hasHitDash;
+    
+    [Range(0, 1)] public float volume = 1f;
+    public List<AudioClip> punchSounds = new List<AudioClip>();
+    public List<AudioClip> dashSounds = new List<AudioClip>();
 
     void Start()
     {
@@ -271,6 +276,8 @@ public class VeryController3 : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        int punchIndex = UnityEngine.Random.Range(0, punchSounds.Count);
+        SoundManager.Instance.PlayerSound(punchSounds[punchIndex], volume);
         CurrentHP = CurrentHP - damage;
         if (CurrentHP <= 0)
         {

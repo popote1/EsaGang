@@ -280,6 +280,16 @@ MonoBehaviour:
   VelocityDisplay: {fileID: 8804250476049703467}
   TchirtMeshRenderer: {fileID: 9073656961601104556}
   PlayerMeshRenderer: {fileID: 1223484759675204403}
+  volume: 0.3
+  punchSounds:
+  - {fileID: 8300000, guid: 88f0dfc6bb6b87a409837363e1ad1e29, type: 3}
+  - {fileID: 8300000, guid: 8d36a281104c30c458eaddc98208901f, type: 3}
+  - {fileID: 8300000, guid: 105f4ac20e2ed2449993a23ea4519835, type: 3}
+  dashSounds:
+  - {fileID: 8300000, guid: 641a359b585a849499fe9816c0fbff01, type: 3}
+  - {fileID: 8300000, guid: c34e7c03a34c0464bb04c6044a9b04c6, type: 3}
+  - {fileID: 8300000, guid: 84a6515f15dd0d746859dac1e579089b, type: 3}
+  - {fileID: 8300000, guid: 4b79cb2ef6344e94f905b804770f46b1, type: 3}
 --- !u!1 &8804250476049703465
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,6 +860,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8804250476011298505}
     m_Modifications:
+    - target: {fileID: 4683444036750044068, guid: eea7a22217d823d46bac2cdc5f274968, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: -0.0000002977904
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683444036750044068, guid: eea7a22217d823d46bac2cdc5f274968, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 0.33468452
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683444036750044068, guid: eea7a22217d823d46bac2cdc5f274968, type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: -0.00000025884947
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683444037079954354, guid: eea7a22217d823d46bac2cdc5f274968, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 0.00000035541598
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683444037079954354, guid: eea7a22217d823d46bac2cdc5f274968, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 0.3346746
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683444037079954354, guid: eea7a22217d823d46bac2cdc5f274968, type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: 0.00000025483314
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683444037115102198, guid: eea7a22217d823d46bac2cdc5f274968, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: -0.000000062864274
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683444037115102198, guid: eea7a22217d823d46bac2cdc5f274968, type: 3}
+      propertyPath: m_ConnectedAnchor.y
+      value: 0.29193228
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683444037115102198, guid: eea7a22217d823d46bac2cdc5f274968, type: 3}
+      propertyPath: m_ConnectedAnchor.z
+      value: -0.00000027567148
+      objectReference: {fileID: 0}
     - target: {fileID: 5148835884073654867, guid: eea7a22217d823d46bac2cdc5f274968, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -898,7 +944,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tank_LPRIGG
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4683444036827875818, guid: eea7a22217d823d46bac2cdc5f274968, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: eea7a22217d823d46bac2cdc5f274968, type: 3}
 --- !u!4 &543450652229425867 stripped
 Transform:

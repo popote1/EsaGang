@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
 [RequireComponent(typeof(Rigidbody))]
 public class Grabable : MonoBehaviour
 {
@@ -12,6 +14,10 @@ public class Grabable : MonoBehaviour
     public int Damage = 2;
     public bool Throwed;
     [NonSerialized] public Rigidbody Rigidbody;
+
+    [Range(0, 1)] public float volume = 1f;
+    public List<AudioClip> objectSounds = new List<AudioClip>();
+    public List<AudioClip> hitSounds = new List<AudioClip>();
 
     private Vector3 _anchorPos;
     private float _spring;
@@ -47,12 +53,21 @@ public class Grabable : MonoBehaviour
                 go.transform.up = transform.position-other.contacts[0].point;
                 other.gameObject.GetComponentInParent<VeryController3>().TakeDamage(Damage);
                 Throwed = false;
-
+                
+                int soundIndex = Random.Range(0, objectSounds.Count);
+                SoundManager.Instance.PlayerSound(objectSounds[soundIndex], volume);
+                
+                int hitIndex = Random.Range(0, hitSounds.Count);
+                SoundManager.Instance.PlayerSound(hitSounds[hitIndex], volume);
+                
             }
             else
             {
                 GameObject go = Instantiate(HitParticule, other.contacts[0].point, Quaternion.identity);
                 go.transform.up = transform.position - other.contacts[0].point;
+                
+                int soundIndex = Random.Range(0, objectSounds.Count);
+                SoundManager.Instance.PlayerSound(objectSounds[soundIndex], volume);
             }
         }
 
