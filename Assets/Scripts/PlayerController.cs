@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,7 +17,6 @@ public class PlayerController : MonoBehaviour
         Debug.Log(playerInput.currentControlScheme);
     }
 
-    // Update is called once per frame
     void Update()
     {
         rb.AddForce(AxisX * 600, 0, AxisZ * 600);
