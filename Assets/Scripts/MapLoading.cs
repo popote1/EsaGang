@@ -11,8 +11,14 @@ public class MapLoading : MonoBehaviour
     public CameraScript CameraScript;
     public AudioClip Music;
     [Range(0, 1)] public float MusicVolume=1;
+    
 
     public bool GameIsEnd;
+
+    [Header("SlowMode Parametres")] public float SlowModeTime=10f;
+    public float SlowFactor=0.2f;
+
+    private float _timer;
     void Start()
     {
         if (MultiPlayerManager.Instance == null) return;
@@ -43,7 +49,12 @@ public class MapLoading : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (GameIsEnd)
+        {
+            Time.timeScale = SlowFactor;
+            _timer += Time.unscaledDeltaTime;
+            Debug.Log("Timer = "+Mathf.RoundToInt( _timer));
+        }
     }
 
     public void PlayerLostHP(MenuPlayerConfiguration player, int damage)
@@ -65,7 +76,7 @@ public class MapLoading : MonoBehaviour
         if (teamAlive.Count == 1)
         {
             GameIsEnd = true;
-            MultiPlayerManager.Instance.GoToWinScene();
+           // MultiPlayerManager.Instance.GoToWinScene();
         }
     } 
 }
