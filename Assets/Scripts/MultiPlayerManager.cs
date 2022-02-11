@@ -8,6 +8,8 @@ public class MultiPlayerManager : MonoBehaviour
 {
 
     public List<MenuPlayerConfiguration> _playerConfigurations;
+    public UIPlayerMenuConfigurationMenu[] Slots = new UIPlayerMenuConfigurationMenu[4];
+    public MenuPlayerConfiguration[] MenuSlotes = new MenuPlayerConfiguration[4];
     
 
     public int maxplayer = 4;
@@ -34,6 +36,9 @@ public class MultiPlayerManager : MonoBehaviour
     public void SetPlayerInfo(int index, int head, Color color, int team) {
         _playerConfigurations[index].SetValues(head, color, team);
     }
+    public void SetPlayerInfoWithSlote(int slote, int head, Color color, int team) {
+        MenuSlotes[slote].SetValues(head, color, team);
+    }
     
     public void SetPlayReady(int index, bool value)
     {
@@ -44,18 +49,39 @@ public class MultiPlayerManager : MonoBehaviour
             //LoadnewScene(2);
         }
     }
+    public void SetPlayReadywithSlote(int slote, bool value)
+    {
+        MenuSlotes[slote].PlayerIsReady = value;
+        List<MenuPlayerConfiguration> player = MenuSlotes.Where(p => p.PlayerInputCommands != null).ToList();
+        if (player.Count > 1 && player.All(p => p.PlayerIsReady == true))
+        {
+            IsReadyToLounch = true;
+            MainMenuScripte.loadLevelPannel();
+        }
+    }
+    
 
     public void AddPlayer(PlayerInput pi)
     {
         Debug.Log("Add a player");
 
-        if (_playerConfigurations.All(p => p.PlayerIndex != pi.playerIndex))
-        {
-            PlayerInputCommands pc = pi.GetComponent<PlayerInputCommands>();
-            _playerConfigurations.Add(new MenuPlayerConfiguration(pc));
-            pc.transform.SetParent(transform);
-            MainMenuScripte.AddPlayerUI(pc, _playerConfigurations.Count-1);
-        }
+       //if (_playerConfigurations.All(p => p.PlayerIndex != pi.playerIndex))
+       //{
+       //    
+       //    PlayerInputCommands pc = pi.GetComponent<PlayerInputCommands>();
+       //    _playerConfigurations.Add(new MenuPlayerConfiguration(pc));
+       //    pc.transform.SetParent(transform);
+       //    MainMenuScripte.AddPlayerUI(pc, _playerConfigurations.Count-1);
+       //}
+
+       int sloteindex = GetFreeSlote();
+       if (sloteindex==-1) Debug.LogWarning( "Plus de place pour un nouveau joueur");
+       
+       PlayerInputCommands pc = pi.GetComponent<PlayerInputCommands>();
+       //_playerConfigurations.Add(new MenuPlayerConfiguration(pc));
+       MenuSlotes[sloteindex] = new MenuPlayerConfiguration(pc);
+       pc.transform.SetParent(transform);
+       MainMenuScripte.AddPlayerUI(pc, _playerConfigurations.Count-1);
     }
 
     public void OnRemovePlayer(PlayerInput pi)
@@ -97,5 +123,11 @@ public class MultiPlayerManager : MonoBehaviour
         }
         _playerConfigurations.Clear();
         SceneManager.LoadScene(0);
+    }
+    public int GetFreeSlote() {
+        for (int i = 0; i < Slots.Length; i++) {
+            if (Slots[i] == null) return i;
+        }
+        return -1;
     }
 }

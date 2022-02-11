@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.Rendering.UI;
 
 public class MainMenuScripte : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class MainMenuScripte : MonoBehaviour
     public MultiPlayerManager Prefabs;
     public SoundManager PrefabsSoundManager;
     public RectTransform[] PlayerPanel;
+    public GameObject[] PressToEnter;
     public GameObject PanelIntro;
     public GameObject PanelSelectionPlayer;
     public AudioClip Music;
@@ -23,6 +25,7 @@ public class MainMenuScripte : MonoBehaviour
     public Image ImgLevel;
     public Text TxtLevel;
 
+    
     private int _indexmap;
 
 
@@ -36,10 +39,16 @@ public class MainMenuScripte : MonoBehaviour
 
     public void AddPlayerUI(PlayerInputCommands pc, int index)
     {
+        int playerSlote = MultiPlayerManager.Instance.GetFreeSlote();
+        if (playerSlote ==-1) Debug.LogWarning( "No Player Formor players");
+        
         UIPlayerMenuConfigurationMenu ui = Instantiate(PrefabUIPlayerMenuConfigurationMenu);
         ui.PlayerInputCommands = pc;
         pc.ConfigMenu = ui;
-        ui.SetPlayerIndex(PlayerPanel[index]);
+        ui.Slote = playerSlote;
+        MultiPlayerManager.Instance.Slots[playerSlote] = ui;
+        ui.SetPlayerIndex(PlayerPanel[playerSlote]);
+        PressToEnter[playerSlote].SetActive(false);
     }
 
     
@@ -60,9 +69,15 @@ public class MainMenuScripte : MonoBehaviour
     {
         if (Music!=null)SoundManager.Instance.PlayerSound(MapOpenSound,MapOpenSoundVolume);
         MapPanel.SetActive(true);
-        foreach (MenuPlayerConfiguration player in MultiPlayerManager.Instance._playerConfigurations)
+        //foreach (MenuPlayerConfiguration player in MultiPlayerManager.Instance._playerConfigurations)
+        //{
+        //    player.PlayerInputCommands.ConfigMenu.EventSystem.enabled = false;
+        //}
+        for (int i = 0; i < MultiPlayerManager.Instance.MenuSlotes.Length; i++)
         {
-            player.PlayerInputCommands.ConfigMenu.EventSystem.enabled = false;
+            if (MultiPlayerManager.Instance.MenuSlotes[i].PlayerInputCommands==null)continue;
+            MultiPlayerManager.Instance.MenuSlotes[i].PlayerInputCommands.ConfigMenu.EventSystem.enabled = false;
+            MultiPlayerManager.Instance._playerConfigurations.Add(MultiPlayerManager.Instance.MenuSlotes[i]);
         }
         MultiPlayerManager.Instance._playerConfigurations[0].PlayerInputCommands.PlayerInput.uiInputModule = MapEventSysteme;
         ImgLevel.sprite = MapDates[0].Sprie;
@@ -83,6 +98,8 @@ public class MainMenuScripte : MonoBehaviour
     {
         MultiPlayerManager.Instance.LoadNewScene(MapDates[_indexmap].MapSceneIndex);
     }
+
+    
 }
 
 [Serializable]

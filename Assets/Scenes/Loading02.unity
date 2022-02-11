@@ -187,6 +187,9 @@ MonoBehaviour:
   HitPlayerParticule: {fileID: 2942772473696930089, guid: d951fe9e2f8b18c449e6a99c82bd478b, type: 3}
   Damage: 2
   Throwed: 0
+  volume: 1
+  objectSounds: []
+  hitSounds: []
 --- !u!54 &44130197
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -343,6 +346,9 @@ MonoBehaviour:
   HitPlayerParticule: {fileID: 2942772473696930089, guid: d951fe9e2f8b18c449e6a99c82bd478b, type: 3}
   Damage: 2
   Throwed: 0
+  volume: 1
+  objectSounds: []
+  hitSounds: []
 --- !u!54 &57154011
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3008,6 +3014,9 @@ MonoBehaviour:
   HitPlayerParticule: {fileID: 2942772473696930089, guid: d951fe9e2f8b18c449e6a99c82bd478b, type: 3}
   Damage: 2
   Throwed: 0
+  volume: 1
+  objectSounds: []
+  hitSounds: []
 --- !u!54 &123528929
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3164,6 +3173,9 @@ MonoBehaviour:
   HitPlayerParticule: {fileID: 2942772473696930089, guid: d951fe9e2f8b18c449e6a99c82bd478b, type: 3}
   Damage: 2
   Throwed: 0
+  volume: 1
+  objectSounds: []
+  hitSounds: []
 --- !u!54 &152161855
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3432,6 +3444,9 @@ MonoBehaviour:
   HitPlayerParticule: {fileID: 2942772473696930089, guid: d951fe9e2f8b18c449e6a99c82bd478b, type: 3}
   Damage: 2
   Throwed: 0
+  volume: 1
+  objectSounds: []
+  hitSounds: []
 --- !u!54 &336677798
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3588,6 +3603,9 @@ MonoBehaviour:
   HitPlayerParticule: {fileID: 2942772473696930089, guid: d951fe9e2f8b18c449e6a99c82bd478b, type: 3}
   Damage: 2
   Throwed: 0
+  volume: 1
+  objectSounds: []
+  hitSounds: []
 --- !u!54 &405938850
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3856,6 +3874,9 @@ MonoBehaviour:
   HitPlayerParticule: {fileID: 2942772473696930089, guid: d951fe9e2f8b18c449e6a99c82bd478b, type: 3}
   Damage: 2
   Throwed: 0
+  volume: 1
+  objectSounds: []
+  hitSounds: []
 --- !u!54 &736908479
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4685,6 +4706,9 @@ MonoBehaviour:
   HitPlayerParticule: {fileID: 2942772473696930089, guid: d951fe9e2f8b18c449e6a99c82bd478b, type: 3}
   Damage: 2
   Throwed: 0
+  volume: 1
+  objectSounds: []
+  hitSounds: []
 --- !u!54 &1639779576
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5158,6 +5182,9 @@ MonoBehaviour:
   HitPlayerParticule: {fileID: 2942772473696930089, guid: d951fe9e2f8b18c449e6a99c82bd478b, type: 3}
   Damage: 2
   Throwed: 0
+  volume: 1
+  objectSounds: []
+  hitSounds: []
 --- !u!54 &1845405516
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5314,6 +5341,9 @@ MonoBehaviour:
   HitPlayerParticule: {fileID: 2942772473696930089, guid: d951fe9e2f8b18c449e6a99c82bd478b, type: 3}
   Damage: 2
   Throwed: 0
+  volume: 1
+  objectSounds: []
+  hitSounds: []
 --- !u!54 &1871127017
 Rigidbody:
   m_ObjectHideFlags: 0

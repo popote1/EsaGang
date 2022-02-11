@@ -65,7 +65,7 @@ public class VeryController3 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        VelocityDisplay.text = CurrentHP + " / " + MaxHP;
+        //VelocityDisplay.text = CurrentHP + " / " + MaxHP;
         if (_vibrationTimer > 0)
         {
             _vibrationTimer -= Time.deltaTime;

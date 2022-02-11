@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class MapLoading : MonoBehaviour
 {
@@ -9,11 +10,13 @@ public class MapLoading : MonoBehaviour
     public Color[] TeamsColor;
     public InGamePlayerInfo2[] PlayerPanel;
     public CameraScript CameraScript;
+    public CinemachineTargetGroup CinemachineTargetGroup;
     public AudioClip Music;
     [Range(0, 1)] public float MusicVolume=1;
     
 
     public bool GameIsEnd;
+    public float TimerToWinScreen = 4;
 
     [Header("SlowMode Parametres")] public float SlowModeTime=10f;
     public float SlowFactor=0.2f;
@@ -23,9 +26,12 @@ public class MapLoading : MonoBehaviour
     {
         if (MultiPlayerManager.Instance == null) return;
 
+        CinemachineTargetGroup.m_Targets =
+            new CinemachineTargetGroup.Target[MultiPlayerManager.Instance._playerConfigurations.Count];
         
         for(int i=0; i< MultiPlayerManager.Instance._playerConfigurations.Count;i++)
         {
+            
             VeryController3 player =Instantiate(PrefabsPlayer, PlayerSpawn[i].position, PlayerSpawn[i].rotation);
             MultiPlayerManager.Instance._playerConfigurations[i].PlayerInputCommands.Player = player;
             player.PlayerInfo = MultiPlayerManager.Instance._playerConfigurations[i];
@@ -36,7 +42,11 @@ public class MapLoading : MonoBehaviour
             MultiPlayerManager.Instance._playerConfigurations[i].IndexInGamePanel= i;
             player.PlayerMeshRenderer.material.color = MultiPlayerManager.Instance._playerConfigurations[i].ColorPlayer;
             player.TchirtMeshRenderer.material.color = TeamsColor[MultiPlayerManager.Instance._playerConfigurations[i].FactionIndex];
-            CameraScript.AddPlayerToList(player.gameObject);
+            //CameraScript.AddPlayerToList(player.gameObject);
+            CinemachineTargetGroup.m_Targets[i].weight = 1;
+            CinemachineTargetGroup.m_Targets[i].radius = 2;
+            CinemachineTargetGroup.m_Targets[i].target = player.transform;
+            
             
             PlayerPanel[i].gameObject.SetActive(true);
             PlayerPanel[i].SetFaceColor(MultiPlayerManager.Instance._playerConfigurations[i].ColorPlayer);
@@ -51,9 +61,12 @@ public class MapLoading : MonoBehaviour
     {
         if (GameIsEnd)
         {
-            Time.timeScale = SlowFactor;
             _timer += Time.unscaledDeltaTime;
+            Time.timeScale = Mathf.Lerp(1, SlowFactor, 1-_timer / TimerToWinScreen);
             Debug.Log("Timer = "+Mathf.RoundToInt( _timer));
+            if (_timer > TimerToWinScreen) {
+                MultiPlayerManager.Instance.GoToWinScene();
+            }
         }
     }
 
@@ -61,6 +74,12 @@ public class MapLoading : MonoBehaviour
     {
         player.HP += damage;
         PlayerPanel[player.IndexInGamePanel].TakeDamage(damage);
+        if (!player.IsAlive)
+        {
+            Debug.Log(" retire le joueur du baricentre");
+            CinemachineTargetGroup.RemoveMember(player.PlayerInputCommands.Player.transform);
+        }
+
         CheckGameState();
     }
 

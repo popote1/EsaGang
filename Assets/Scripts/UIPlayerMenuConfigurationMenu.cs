@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem.UI;
+using Random = UnityEngine.Random;
 
 public class UIPlayerMenuConfigurationMenu : MonoBehaviour
 {
@@ -11,26 +12,22 @@ public class UIPlayerMenuConfigurationMenu : MonoBehaviour
     public GameObject ReadyPanel;
     public GameObject MenuPanel;
     public AudioClip EnterSound;
-    [Range(0, 1)] public float EntersoundVolume=1;
-    [Header("Heade")] 
-    public int IndexHead=0;
+    [Range(0, 1)] public float EntersoundVolume = 1;
+    [Header("Heade")] public int IndexHead = 0;
     public HeadSetUp[] HeadSetUps;
     public Text TxtHeadName;
-    [Header("Color")] 
-    public int IndexColor=0;
+    [Header("Color")] public int IndexColor = 0;
     public Color[] Colors;
     public Image ImgColor;
-    [Header("Team")]
-    public int IndexTeam=0;
+    [Header("Team")] public int IndexTeam = 0;
     public TeamSetUp[] TeamSetUps;
     public Text TxtTeamName;
     public Image ImgTeamColor;
-    [Header("ExtraModels")] 
-    public SkinnedMeshRenderer PlayerBody;
+    [Header("ExtraModels")] public SkinnedMeshRenderer PlayerBody;
     public SkinnedMeshRenderer PlayerTChirt;
     public SpriteRenderer TeamSprite;
     public Transform Head;
-
+    [NonSerialized] public int Slote; 
     private GameObject _head;
     public bool CanInteract {
         get {return EventSystem.enabled;
@@ -48,6 +45,10 @@ public class UIPlayerMenuConfigurationMenu : MonoBehaviour
         PlayerInputCommands.PlayerInput.uiInputModule = EventSystem;
         EventSystem.enabled = true;
         Debug.Log("Panel Setted");
+
+        IndexHead = Random.Range(0, HeadSetUps.Length);
+        IndexColor = Random.Range(0, Colors.Length);
+        IndexTeam = Random.Range(0, TeamSetUps.Length);
         
         
         TxtHeadName.text = HeadSetUps[IndexHead].Name;
@@ -58,7 +59,7 @@ public class UIPlayerMenuConfigurationMenu : MonoBehaviour
         PlayerTChirt.material.color = TeamSetUps[IndexTeam].Color + new Color(0, 0, 0, 1);
         PlayerBody.material.color = Colors[IndexColor]+new Color(0,0,0,1);
 
-        _head = Instantiate(HeadSetUps[0].prefabs, Head.position, Head.rotation);
+        _head = Instantiate(HeadSetUps[IndexHead].prefabs, Head.position, Head.rotation);
         _head.transform.SetParent(Head);
         _head.transform.localScale = Head.transform.localScale;
         
@@ -70,8 +71,8 @@ public class UIPlayerMenuConfigurationMenu : MonoBehaviour
 
     public void SetReadyPlayer()
     {
-        MultiPlayerManager.Instance.SetPlayerInfo(PlayerIndex , IndexHead, Colors[IndexColor], IndexTeam);
-        MultiPlayerManager.Instance.SetPlayReady(PlayerIndex, true);
+        MultiPlayerManager.Instance.SetPlayerInfoWithSlote(Slote , IndexHead, Colors[IndexColor], IndexTeam);
+        MultiPlayerManager.Instance.SetPlayReadywithSlote(PlayerIndex, true);
     }
 
     public void UIChangeHead(int value)
@@ -113,8 +114,10 @@ public class UIPlayerMenuConfigurationMenu : MonoBehaviour
 
     public void GoBack()
     {
-        MultiPlayerManager.Instance._playerConfigurations.Remove(
-            MultiPlayerManager.Instance._playerConfigurations[PlayerIndex]);
+        MultiPlayerManager.Instance._playerConfigurations.Remove(MultiPlayerManager.Instance.MenuSlotes[Slote]);
+        MultiPlayerManager.Instance.MenuSlotes[Slote] = null;
+        MultiPlayerManager.Instance.Slots[Slote] = null;
+        MultiPlayerManager.Instance.MainMenuScripte.PressToEnter[Slote].SetActive(true);
         Destroy(PlayerInputCommands.gameObject);
         Destroy(gameObject);
     }
