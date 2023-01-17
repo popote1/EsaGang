@@ -42,7 +42,7 @@ public class SoundManager : MonoBehaviour
         MusicAudioSource.Stop();
         MusicAudioSource.clip = clip;
         MusicAudioSource.volume = volume;
+        MusicAudioSource.loop = true;
         MusicAudioSource.Play();
-        Destroy(MusicAudioSource, clip.length);
     }
 }

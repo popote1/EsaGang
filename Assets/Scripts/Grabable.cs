@@ -55,10 +55,10 @@ public class Grabable : MonoBehaviour
                 Throwed = false;
                 
                 int soundIndex = Random.Range(0, objectSounds.Count);
-                SoundManager.Instance.PlayerSound(objectSounds[soundIndex], volume);
+                if (objectSounds.Count>0)SoundManager.Instance.PlayerSound(objectSounds[soundIndex], volume);
                 
                 int hitIndex = Random.Range(0, hitSounds.Count);
-                SoundManager.Instance.PlayerSound(hitSounds[hitIndex], volume);
+                if (objectSounds.Count>0)SoundManager.Instance.PlayerSound(hitSounds[hitIndex], volume);
                 
             }
             else
@@ -67,7 +67,7 @@ public class Grabable : MonoBehaviour
                 go.transform.up = transform.position - other.contacts[0].point;
                 
                 int soundIndex = Random.Range(0, objectSounds.Count);
-                SoundManager.Instance.PlayerSound(objectSounds[soundIndex], volume);
+                if (objectSounds.Count>0) SoundManager.Instance.PlayerSound(objectSounds[soundIndex], volume);
             }
         }
 

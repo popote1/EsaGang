@@ -24,52 +24,33 @@ public class EndGameMenu : MonoBehaviour
 
     void Start()
     {
+        _timer += TimeOnScene;
         if (MultiPlayerManager.Instance != null)
         {
-            _timer += TimeOnScene;
             if (Music != null) {
                 SoundManager.Instance.PlayMusic(Music, MusicVolume);
             }
 
-            for (int i = 0; i < MultiPlayerManager.Instance._playerConfigurations.Count; i++)
-            {
-                if (MultiPlayerManager.Instance._playerConfigurations[i].IsAlive)
-                {
-                    
+            for (int i = 0; i < MultiPlayerManager.Instance._playerConfigurations.Count; i++) {
+                MenuPlayerConfiguration info = MultiPlayerManager.Instance._playerConfigurations[i];
+                Body body;
+                if (MultiPlayerManager.Instance._playerConfigurations[i].IsAlive) {
+                    body= WinnersBodys.Where(w => !w.FullBody.activeSelf).ToArray()[0];  
                 }
-
-
-
-                    VeryController3 player =
-                        Instantiate(PrefabsPlayer, PlayerSpawn[i].position, PlayerSpawn[i].rotation);
-                MultiPlayerManager.Instance._playerConfigurations[i].PlayerInputCommands.Player = player;
-                player.PlayerInfo = MultiPlayerManager.Instance._playerConfigurations[i];
-                player.MapLoading = this;
-                player.PlayerInputCommands = MultiPlayerManager.Instance._playerConfigurations[i].PlayerInputCommands;
-
-                MultiPlayerManager.Instance._playerConfigurations[i].HP = 10;
-                MultiPlayerManager.Instance._playerConfigurations[i].IndexInGamePanel = i;
-                player.PlayerMeshRenderer.material.color =
-                    MultiPlayerManager.Instance._playerConfigurations[i].ColorPlayer;
-                player.TchirtMeshRenderer.material.color =
-                    TeamsColor[MultiPlayerManager.Instance._playerConfigurations[i].FactionIndex];
-                //CameraScript.AddPlayerToList(player.gameObject);
-                if (Music != null) SoundManager.Instance.PlayMusic(Music, MusicVolume);
+                else {
+                    body= LoserBodys.Where(w => !w.FullBody.activeSelf).ToArray()[0]; 
+                }
+                body.FullBody.SetActive(true);
+                body.BodyMeshRenderer.material.color = info.ColorPlayer;
+                body.TchirtMeshRenderer.material.color = TeamSetUps[info.FactionIndex].Color;
+                GameObject head =Instantiate(Heads[info.HeadIndex], body.Head);
+                head.transform.position = body.Head.position;
+                head.transform.rotation = body.Head.rotation;
             }
         }
     }
 
-    private void SetWinnerBody(MenuPlayerConfiguration info)
-    {
-        Body body = WinnersBodys.Where(w => w.FullBody.activeSelf).ToArray()[0];
-        body.BodyMeshRenderer.material.color = info.ColorPlayer;
-        body.TchirtMeshRenderer.material.color = TeamSetUps[info.FactionIndex].Color;
-        
-        GameObject head =Instantiate(Heads[info.HeadIndex], body.Head);
-        head.transform.position = body.Head.position;
-        head.transform.rotation = body.Head.rotation;
-
-    }
+    
 
 
     // Update is called once per frame
@@ -87,6 +68,6 @@ public struct Body
 {
     public GameObject FullBody;
     public Transform Head;
-    public MeshRenderer BodyMeshRenderer;
-    public MeshRenderer TchirtMeshRenderer;
+    public SkinnedMeshRenderer BodyMeshRenderer;
+    public SkinnedMeshRenderer TchirtMeshRenderer;
 }

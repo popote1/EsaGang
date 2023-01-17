@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.UI;
 
 public class MapLoading : MonoBehaviour
 {
@@ -13,15 +13,18 @@ public class MapLoading : MonoBehaviour
     public CinemachineTargetGroup CinemachineTargetGroup;
     public AudioClip Music;
     [Range(0, 1)] public float MusicVolume=1;
-    
 
+
+    public float GameTime=60;
     public bool GameIsEnd;
     public float TimerToWinScreen = 4;
+    public Text TxtGameTimer;
 
     [Header("SlowMode Parametres")] public float SlowModeTime=10f;
     public float SlowFactor=0.2f;
 
     private float _timer;
+    private float _gameTimer=0;
     void Start()
     {
         if (MultiPlayerManager.Instance == null) return;
@@ -62,10 +65,22 @@ public class MapLoading : MonoBehaviour
         if (GameIsEnd)
         {
             _timer += Time.unscaledDeltaTime;
-            Time.timeScale = Mathf.Lerp(1, SlowFactor, 1-_timer / TimerToWinScreen);
-            Debug.Log("Timer = "+Mathf.RoundToInt( _timer));
-            if (_timer > TimerToWinScreen) {
+            Time.timeScale = Mathf.Lerp(1, SlowFactor,  _timer / TimerToWinScreen);
+            Debug.Log("Timer = " + Mathf.RoundToInt(_timer));
+            if (_timer > TimerToWinScreen)
+            {
                 MultiPlayerManager.Instance.GoToWinScene();
+                Time.timeScale = 1;
+            }
+            
+        }
+
+        if (!GameIsEnd)
+        {
+            _gameTimer += Time.deltaTime;
+            TxtGameTimer.text = Mathf.FloorToInt(GameTime - _gameTimer) + "";
+            if (_gameTimer > GameTime) {
+                GameIsEnd = true;
             }
         }
     }

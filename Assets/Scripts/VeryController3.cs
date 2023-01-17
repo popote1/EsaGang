@@ -17,12 +17,16 @@ public class VeryController3 : MonoBehaviour
     public float RideHeight;
     public float RideSpringStrenght;
     public float RideSpringDamper;
-    [Header("UpRight")] public float UprightJointSpringStrength;
+    [Header("UpRight")] 
+    public float UprightJointSpringStrength;
     public float UprightJointSpringDamper;
     public bool IsGrounded;
     [Header("MovementParameters")] public float MaxSpeed = 8;
     public float Acceleration = 200;
     public ParticleSystem MoveParticule;
+    
+    
+    
     [Header("Dasher Parameters")] public float DashForce;
     public float DashOutOfCOntrolTime;
     public int DashDamage = 1;

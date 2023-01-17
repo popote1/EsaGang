@@ -10,9 +10,16 @@ public class PlayerInputCommands : MonoBehaviour
     public PlayerInputManager PlayerInputManager;
     public UIPlayerMenuConfigurationMenu ConfigMenu;
     public VeryController3 Player;
+    
     public void OnMovement(InputValue val)=>Player?.OnMovement(val.Get<Vector2>());
     public void OnPunch(InputValue val){}
-    public void OnHit(InputValue val)=>Player?.OnHit();
+
+    public void OnHit(InputValue val)
+    {
+        if (Player==null)return;
+        Player?.OnHit();
+    }
+
     public void OnGrabObject(InputValue val)=>Player?.OnGrabObject();
     public void OnBack(InputValue val) => ConfigMenu?.GoBack();
 }
